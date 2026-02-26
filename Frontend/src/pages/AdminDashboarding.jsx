@@ -601,12 +601,7 @@ function AdminDashboarding() {
                       <p className="text-gray-500 text-xs line-clamp-2 mt-2">{event.description}</p>
                     )}
                   </div>
-                  <div className="mt-4 pt-4 border-t flex justify-between items-center">
-                    <span className="text-xs text-gray-500">Click to view registrations</span>
-                    <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </div>
+                  
                 </div>
               </div>
             );
