@@ -1,0 +1,111 @@
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { AuthApi } from "../api/client.js";
+import { useAuth } from "../context/AuthContext.jsx";
+
+function AdminLoginPage() {
+  const navigate = useNavigate();
+  const { loginAdmin } = useAuth();
+
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
+  });
+
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+    setLoading(true);
+
+    try {
+      const res = await AuthApi.adminLogin(form);
+      
+      // The admin data is directly in res.data (no wrapper)
+      const adminData = res.data;
+      
+      // Validate we got the expected data
+      if (!adminData || !adminData.id) {
+        throw new Error("Invalid response from server");
+      }
+
+      // Since token is in HTTP-only cookie, we don't need to store it manually
+      // Just pass the admin data - loginAdmin will handle the rest
+      loginAdmin(adminData);
+
+      navigate("/admin");
+    } catch (err) {
+      console.error("Login error:", err);
+      setError(
+        err?.response?.data?.message ||
+          err?.message ||
+          "Login failed. Please try again."
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <main className="pt-24 px-4 pb-10 flex justify-center">
+      <form
+        onSubmit={handleSubmit}
+        className="bg-white rounded-2xl shadow-lg border border-gray-200 p-8 w-full max-w-md space-y-5"
+      >
+        <h1 className="text-2xl font-semibold text-center">
+          Admin Login
+        </h1>
+
+        {error && (
+          <p className="text-sm text-red-500 text-center">
+            {error}
+          </p>
+        )}
+
+        <div>
+          <label className="text-sm text-gray-600">Email</label>
+          <input
+            type="email"
+            name="email"
+            value={form.email}
+            onChange={handleChange}
+            required
+            className="mt-1 w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"
+          />
+        </div>
+
+        <div>
+          <label className="text-sm text-gray-600">Password</label>
+          <input
+            type="password"
+            name="password"
+            value={form.password}
+            onChange={handleChange}
+            required
+            className="mt-1 w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"
+          />
+        </div>
+
+        <button
+          type="submit"
+          disabled={loading}
+          className="w-full bg-blue-600 text-white text-sm py-2.5 rounded-lg hover:bg-blue-700 disabled:opacity-50"
+        >
+          {loading ? "Logging in..." : "Login"}
+        </button>
+      </form>
+    </main>
+  );
+}
+
+export default AdminLoginPage;

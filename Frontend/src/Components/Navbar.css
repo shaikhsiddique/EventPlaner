@@ -1,0 +1,108 @@
+.navbar {
+  width: 100%;
+  background: linear-gradient(90deg, #0f172a, #B04800);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.navbar-inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 80px;
+  height: 65px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+}
+
+.brand-logo {
+  width: 32px;
+  height: 32px;
+  background: #3b82f6;
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+
+.brand-name {
+  color: #e5e7eb;
+  font-family: Inter, -apple-system, Roboto, Helvetica, sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 28px;
+  letter-spacing: -0.7px;
+}
+
+.navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.nav-link {
+  color: #e5e7eb;
+  font-family: Inter, -apple-system, Roboto, Helvetica, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: -0.5px;
+  text-decoration: none;
+}
+
+.nav-link:hover {
+  color: #bfdbfe;
+}
+
+.navbar-actions {
+  display: flex;
+  align-items: center;
+}
+
+.login-btn {
+  padding: 8px 24px;
+  background: #ffffff;
+  color: #1d4ed8;
+  font-family: Inter, -apple-system, Roboto, Helvetica, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: -0.5px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.login-btn:hover {
+  background: #e5e7eb;
+}
+
+.login-btn.secondary {
+  background: transparent;
+  color: #e5e7eb;
+  border: 1px solid rgba(209, 213, 219, 0.4);
+}
+
+.login-btn.secondary:hover {
+  background: rgba(15, 23, 42, 0.3);
+}
+
+@media (max-width: 768px) {
+  .navbar-inner {
+    padding: 0 24px;
+  }
+
+  .navbar-links {
+    gap: 16px;
+  }
+
+  .nav-link {
+    font-size: 14px;
+  }
+}
